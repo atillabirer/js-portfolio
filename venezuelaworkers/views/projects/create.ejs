@@ -1,0 +1,31 @@
+<%- include('../top') %>
+<div class="container">
+<div class="row">
+    <div class="col">
+        <h1>Post new project</h1>
+        <form action="/projects/create" method="POST">
+            <div class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Project title" required>
+            </div>
+            <div class="form-group">
+            <textarea id="description" name="description" class="form-control" placeholder="Project description" required></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text">BCH</span>
+                </div>
+                <input type="text" name="price" class="form-control" placeholder="amounts" required>
+            </div>
+            <div class="form-group">
+            <label for="deadline">Deadline:</label>
+            <input type="date" name="deadline" class="form-control" placeholder="Deadline date" min="2018-11-21" required>
+            </div>
+            <div class="form-group">
+            <button type="submit" class="btn btn-success">Post project</button>
+            </div>
+        </form>
+    
+    </div>
+</div>
+</div>
+<%- include('../bottom')  %>

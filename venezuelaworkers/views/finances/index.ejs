@@ -1,0 +1,48 @@
+<%- include('../top')  %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Financial Dashboard</h3>
+            <h5 class="text-center">Your balance is: <span class="text-success"><%= balance  %> BCH</span></h5>
+            <p class="text-center">You can top up your balance by sending BCH to <%= address  %></p>
+            <% if(true) {%>
+                <form method="POST" action="/finances/withdraw">
+                    <div class="form-group">
+                    <input type="text" name="address" class="form-control" placeholder="Withdrawal BCH address">
+                    </div>
+                    <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Withdraw">
+                    </div>
+                </form>
+            <% } %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Transactions</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Details</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% if(transactions) { %>
+                        <% transactions.forEach((transaction) => { %>
+                            <tr>
+                                <td><%= transaction.type  %></td>
+                                <td><%= transaction.amount  %></td>
+                                <td><%= transaction.details %></td>
+                                <td><%= transaction.status %></td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('../bottom') %>

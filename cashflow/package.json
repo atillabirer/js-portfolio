@@ -1,0 +1,30 @@
+{
+  "name": "gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bitcoin-core": "^2.0.0",
+    "body-parser": "^1.18.3",
+    "cookie": "^0.3.1",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-http-to-https": "^1.1.4",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.3.0",
+    "nodemailer": "^4.6.7",
+    "nonce": "^1.0.4",
+    "request-promise": "^4.2.2",
+    "sendmail": "^1.4.1",
+    "socket.io": "^2.1.1",
+    "sqlite3": "^4.0.1"
+  }
+}

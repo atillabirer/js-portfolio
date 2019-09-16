@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- Owl carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- Main css -->
+    <link href="css/style.css" rel="stylesheet">
+    <style type="text/css">
+      .table td,.table th {
+        border: 0
+      }
+      .table thead th {
+        border: 0
+      }
+    </style>
+    <title>CashFlow Merchant Dashboard</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar" data-offset="30">
+    <div class="nav-menu fixed-top">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <nav class="navbar navbar-dark navbar-expand-lg">
+                      <a class="navbar-brand" href="index.html">CASHFLOW</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                      <div class="collapse navbar-collapse" id="navbar">
+                          <ul class="navbar-nav ml-auto">
+                              <li class="nav-item"> <a class="nav-link active" href="#home">HOME <span class="sr-only">(current)</span></a> </li>
+                              <li class="nav-item"> <a class="nav-link" href="#features">FEATURES</a> </li>
+                            
+                              <li class="nav-item"> <a class="nav-link" href="/install">SHOPIFY</a> </li>
+                              <li class="nav-item"> <a class="nav-link" href="/doc">DEVELOPER DOCS</a> </li>
+                              <li class="nav-item"> <a class="nav-link" href="/terms">TERMS OF SERVICE</a> </li>
+                              <li class="nav-item"> <a class="nav-link" href="mailto:jimmy_birer@outlook.com">SUPPORT</a> </li>
+                              <li class="nav-item" id="welcome"><a class="nav-link" style="text-transform: uppercase">{{email}}</a></li>
+                              <li class="nav-item">
+                                <button class="btn btn-danger" onclick="logout()">Logout</button></li>
+                                
+                          </ul>
+                      </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <header class="bg-gradient" id="home">
+
+				  <h1 id="balance">{{balance}} BCH</h1>
+				  
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="tagline">Create Invoice</p>
+              <br>
+                <form  id="invoiceform" v-on:submit.prevent="createinvoice">
+                    <div class="row">
+                      <div class="col">
+                      <input type="text" class="form-control" name="price" v-model="price" placeholder="Price in BCH"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                      <input type="text" class="form-control" name="description" v-model="description" placeholder="Product description and qty"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                      <input type="text" class="form-control btn-block" name="returnaddr" v-model="returnaddr" placeholder="Refund address"/>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary mb-2">Create Invoice</button>
+                    <a :href="invoiceUrl">{{invoiceUrl ? "Send this link to client" : ""}}</a>
+                  </form>
+            </div>
+            <div class="col-sm-6">
+              <p class="tagline">Withdraw Earnings</p>
+              <br/>
+          <form id="withdrawform" v-on:submit.prevent="withdraw" >
+            
+              <div class="form-group">
+              <input type="text" placeholder="BCH address to withdraw to" class="form-control" v-model="address">
+              <div class="row">
+                <div class="col">
+
+              <button type="submit" class="btn btn-primary btn-block">
+                  Withdraw
+                  </button>
+                  
+                </div>
+                <div class="col">  <button class="btn btn-primary btn-block" @click="privkey">Import Key</button>
+                </div>
+              </div>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+    <br>
+          <h1>Orders List</h1>
+  <div class="table-responsive">
+      <table class="table"  id="txtable">
+        
+          <thead v-if="transactions">
+            <tr>
+              <th><p class="tagline">TXID</p></th>
+              <th><p class="tagline">TOTAL (BCH)</p></th>
+              <th><p class="tagline">DESCRIPTION</p></th>
+              <th><p class="tagline">DEPOSIT ADDRESS</p></th>
+              <th><p class="tagline">REFUND ADDRESS</p></th>
+            </tr>
+          </thead>
+          <tbody v-if="transactions">
+            <tr v-for="tx in transactions">
+              <td>{{tx.txid}}</td>
+              <td>{{tx.price}}</td>
+              <td>
+                {{tx.itemdesc}}
+              </td>
+              <td>{{tx.address}}</td>
+              <td>{{tx.returnaddr}}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+  
+  </div>
+  <div class="img-holder mt-5">
+    
+    </div>
+     
+</header>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+    <script type="text/javascript">
+function logout() {
+document.cookie = "";
+window.location.href="/login";
+}
+var welcome = new Vue({
+	el: "#welcome",
+	data: {
+		email: Cookies.get('email')
+	}
+})
+var balance = new Vue({
+	el: "#balance",
+	data: {
+		balance: 0.00
+	},
+	mounted() {
+		axios.get('/balance',{headers:{"Authorization":"Bearer " + Cookies.get('_token')}}).then((response) => {
+			this.balance = response.data[0]
+		})
+	}
+})
+var txtable = new Vue({
+	el: "#txtable",
+	data: {
+		transactions: null,
+    visible: true
+	},
+  methods: {
+    loadData: function() {
+      
+		axios.get('/transactions',{headers:{'Authorization':"Bearer " + Cookies.get('_token')}}).then((response) => {
+			
+      this.visible = false
+      this.transactions = response.data.map((obj) => {
+				try {
+					obj.postdata = JSON.parse(obj.postdata)
+					console.log(obj.postdata)
+          
+					return obj
+          
+				} catch(e) {
+					//leave obj.postdata alone
+					obj.postdata =   {item: obj.postdata}
+					return obj
+				}
+			})
+		}).catch((error) => console.log(error))
+      
+    }
+  },
+	mounted() {
+    this.loadData()
+    
+    setInterval(function () {
+      this.loadData();
+    }.bind(this), 30000); 
+	}
+})
+var withdrawform = new Vue({
+	el: "#withdrawform",
+	data: {
+		address: Cookies.get('address') || null
+	},
+	methods: {
+		withdraw:function()  {
+			axios.post('/withdraw',{
+				address: this.address
+			},{'headers':{"Authorization":"Bearer " + Cookies.get('_token')}}).then(function(response) {
+				if(response.data.txid) {
+          console.log(response)
+					alert(response.data.txid)
+          window.location.reload()
+				}
+				else {
+					alert(response.data.error)
+          console.log(response.data.error)
+          
+				}
+			})
+		},
+    privkey: function() {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.click();
+      input.addEventListener("change",(event) => {
+        let fileReader = new FileReader()
+
+        fileReader.onload = (result) => {
+          try {
+            let obj = JSON.parse(fileReader.result)
+            this.address = Object.keys(obj)[0]
+            Cookies.set('address',this.address)
+          }catch(ex) {
+            alert("Invalid format. Export private key as JSON in Electron Cash and try again.")
+          }
+        }
+        fileReader.readAsText(event.target.files[0])
+      })
+    }
+	}
+})
+var invoiceform = new Vue({
+  el: "#invoiceform",
+  data: {
+    price: null,
+    description: null,
+    returnaddr: null,
+    invoiceUrl: null
+  },
+  
+  methods: {
+    createinvoice: function() {
+      this.invoiceUrl = ""
+      axios.post('/transactions',{
+        price: this.price,
+        itemdesc: this.description,
+        postdata: JSON.stringify({description:this.description}),
+        returnaddr:this.returnaddr || " ",
+        posturl: "https://cashflow.fm/callback"
+      },
+      {'headers':{"Authorization":"Bearer " + Cookies.get('_token')}}).then((response) => {
+        console.log(response)
+        this.invoiceUrl = "/invoice/" + response.data.address
+      }).catch(function(error) {
+        console.log(error)
+      })
+      
+    }
+  }
+})
+    </script>
+  </body>
+</html>

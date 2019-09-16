@@ -1,0 +1,16 @@
+<%- include('../top') %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="/bids/edit/<%= bid.id %>" method="POST">
+                <div class="form-group">
+                    <textarea id="bid" name="bid" cols="30" rows="10" class="form-control"><%= bid.bid  %></textarea>
+                </div>
+                <div class="form-group">
+                <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../bottom') %>

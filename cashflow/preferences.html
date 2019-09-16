@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <title>CashFlow Shopify Payment Gateway Preferences</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col">
+          <h3>Withdraw your earnings</h3>
+          <p>
+            Balance: <b id="balance">{{balance}}</b> BCH
+          </p>
+          <form action="" id="withdrawform" @submit.prevent="submit">
+          <div class="form-group">
+           <label for="address">Withdrawal BCH address:</label>
+           <input type="text" name="address" v-model="address">
+            
+            <button class="btn btn-success" type="submit">Withdraw</button>
+           </div>
+            
+          <p>{{message}}</p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script type="text/javascript">
+      var urlParams = new URLSearchParams(window.location.search);
+      var balance = new Vue({
+        el: "#balance",
+        data: {
+          balance: 0.00
+        },
+        mounted() {
+          axios.post('/shopbalance',{
+            shop:urlParams.get('shop')
+          }).then((response) => {
+                  if(response.data["SUM(price)"]) {
+            this.balance = response.data['SUM(price)']
+          }
+                  })
+        }
+      })
+    var withdrawform = new Vue({
+      el: "#withdrawform",
+      data: {
+        address: null,
+        message: null
+      },
+      methods: {
+        submit: function() {
+          axios.post('/request',{
+            address: this.address,
+            shop: urlParams.get('shop')
+          }).then((response) => {
+            if(response.data.success) {
+              this.message = response.data.success
+            } else {
+              this.message = response.data.error
+            }
+          }).catch(function(error) {
+            console.log(error)
+          })
+        }
+      }
+    })
+    </script>
+  </body>
+</html>

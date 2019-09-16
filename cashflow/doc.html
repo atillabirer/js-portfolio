@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CashFlow Payment Gateway Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        CashFlow Payment Gateway API Documentation 
+      </h1>
+      <p class="subtitle">REST API and WebSocket notifications</strong>
+      </p>
+      <hr>
+      <aside class="menu">
+            <p class="menu-label title">
+              Index:
+            </p>
+            <ul class="menu-list">
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#rest">REST API</a></li>
+              <li><a href="#websocket">Websocket Notifications</a></li>
+              <li><a href="#notes">Notes</a></li>
+            </ul>
+           
+        </aside>
+    <hr>
+        <h1 class="title" id="introduction">Introduction</h1>
+        <p>CashFlow is a Bitcoin Cash payment processor featuring instant zero confirmation payments, and live payment notifications. It enables buyers to make secure instant purchases and merchants to make instant withdrawals for a low fee.</p>
+        <br>
+        <p>A merchant or a developer can take order requests from clients and update them live on the status of their purchase and can also see purchase requests live on their dashboard. They can create invoices and send the URL to their clients.</p>
+        <br>
+        <h1 class="title" id="rest">REST API</h1>
+        <p>In order to start making requests to the API, the merchant must first register through the dashboard register page or the <b>/register</b> POST endpoint, log in through the <b>/login</b> endpoint with their new credentials, then use the JWT token they received in the Authorization header to start making new order / invoice and withdrawal requests.</p>
+        <br>
+        <h1 class="title"><span class="tag is-danger is-large">POST</span>&nbsp;/register</h1>
+        <p>Send a JSON object with <code>email</code> and <code>password</code> keys in order to register to the gateway.</p>
+        <br>
+        <p>Headers:</p>
+        <code>Content-Type:application/json</code>
+        <p>Request:</p>
+        <code>{email: "example@mail.com","password":"superstrongpass"}</code>
+        <p>Responses: (JSON)</p>
+        <code>{"success":"registered sucesfully"}</code><br>
+        <code>{"error":"missing parameters}</code>
+        <br><br>
+        <h1 class="title"><span class="tag is-danger is-large">POST</span>&nbsp;/login</h1>
+        <p>Send a JSON object with <code>email</code> and <code>password</code> keys in order to login to the gateway.</p>
+        <br>
+        <p>Headers:</p>
+        <code>Content-Type:application/json</code>
+        <p>Request:</p>
+        <code>{email: "example@mail.com","password":"superstrongpass"}</code>
+        <p>Responses: (JSON)</p>
+        <code>{"token":"jwttoken"}</code><br>
+        <code>{"error":"missing parameters}</code>
+        <br>
+        <br>
+        <h1 class="title"><span class="tag is-danger is-large">POST</span>&nbsp;/withdraw</h1>
+        <p>Send a JSON object with <code>address</code>and the <code>Authorization</code> header containing your JWT token to withdraw your Bitcoin Cash earnings.</p>
+        <br>
+        <p>Headers:</p>
+        <code>Content-Type:application/json</code><br>
+        <code>Authorization: Bearer [JWT]</code>
+        <p>Request:</p>
+        <code>{address: bitcoincash:withdrawaladdress}</code>
+        <p>Responses: (JSON)</p>
+        <code>{"txid":"bitcoincashtxid"}</code><br>
+        <code>{"error":"funds too low"}</code>
+        <br>
+        <br>
+        <h1 class="title"><span class="tag is-primary is-large">GET</span>&nbsp;/transactions</h1>
+        <p>Make a GET request to this endpoint with your <code>Authorization</code> header containing your JWT token to get an array of the orders from your clients.</p>
+        <br>
+        <p>Headers:</p>
+        <code>Authorization: Bearer [JWT]</code>
+        <p>Responses: (JSON)</p>
+        <code>[{"price":0.01,"itemdesc":"One VPS","address":"bchaddress","returnaddr":"returnaddress","postdata":"{}","posturl":""},...]</code>
+        <br>
+        <br>
+        <h1 class="title"><span class="tag is-primary is-large">GET</span>&nbsp;/transactions/[txid]</h1>
+        <p>You can get a single order by it's TXID.</p>
+        <br>
+        <p>Headers:</p>
+        <code>Authorization: Bearer [JWT]</code>
+        <p>Responses: (JSON)</p>
+        <code>{"price":0.01,"itemdesc":"One VPS","address":"bchaddress","returnaddr":"returnaddress","postdata":"{}","posturl":""}</code>
+        <br></br>
+        <h1 class="title"><span class="tag is-danger is-large">POST</span>&nbsp;/transactions</h1>
+        <p>Create a transaction (order attempt). Only gets saved in the database when the client pays. Returns an address for the client to pay to.</p>
+        <br>
+        <p>Headers:</p>
+        <code>Authorization: Bearer [JWT]</code><br>
+        <code>Application-Type:application/json</code>
+        <p>Request: (JSON)</p>
+        <code>{"price":0.01,"itemdesc":"One VPS","address":"bchaddress","returnaddr":"returnaddress","postdata":"callbackdata","posturl":"backend/callbackurl"}</code>
+        <p>Response: (JSON)</p>
+        <code>{address: depositaddressforclient}</code><br></br>
+        <h1 class="title"><span class="tag is-danger is-large">GET</span>&nbsp;/invoices/[receivingbitcoincashaddress]</h1>
+        <p>You can generate an invoice link for a client by appending the payment receiving address you got from <code>/transactions</code> to this URL.</p>
+        <br><br>
+        <h1 class="title" id="websocket">Websocket Notifications</h1>
+        <p>You can receive live updates on a transaction payment by using socket.io to bind to the root URL of the payment gateway at the <b>event</b> event.</p>
+        <br>
+        <p>The <b>event</b> event receives an object in the format of <code>{address:address,event:eventname}</code> where <code>address</code> is the receiving Bitcoin Cash address and the event is one of <code>success</code>, <code>underpaid</code> or <code>overpaid</code>.
+        In the case of underpaid or overpaid events, there will also be an <code>amount</code> field to denote how much BCH needs to be deposited more or is about to be refunded for being surplus.</p>
+        <br>
+        <p>Below is a code snippet that we hope will help you use this feature.</p>
+        <br>
+        <pre>
+<script src="/socket.io/socket.io.js"></script>
+&lt;script&gt;
+  var socket = io('https://cashflow.fm');
+  socket.on('event', function (data) {
+      if(data.address == addressfromposttransactions) {
+          switch(data.event) {
+              case "success":
+              //inform the user of payment success
+              break;
+              case "overpaid":
+              //inform the user of payment success and that they'll get the money they paid extra back
+              break;
+              case "underpaid":
+              //inform the user of payment failure and how much they need to pay more (in data.amount)
+              break;
+              default: 
+              break;
+          } else {
+              //not relevant to current tx, you can ignore safely
+          }
+      }
+  });
+&lt;/script&gt;
+      
+</pre>
+<br>
+<h1 class="title" id="notes">Notes</h1>
+<p>You must always include the <code>Content-Type:application/json</code> header when you make POST requests with JSON format or your requests will fail. </p>
+        </div>
+    </div>
+  </section>
+  </body>
+</html>

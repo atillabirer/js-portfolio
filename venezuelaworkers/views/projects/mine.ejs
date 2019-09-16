@@ -1,0 +1,51 @@
+<%- include('../top') %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table">
+            <thead>
+            <tr>
+                <th>Project</th>
+                <th>Awarded to</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <% if(projects) { %>
+                <% projects.forEach(function(project) { %>
+                    <% if(user.type == 'worker'){ %>
+                    <tr>
+                        <td><a href="/projects/<%= project.id %>"><%= project.title %></a></td>
+                        <td>Me</td>
+                        <td>
+                            <a class="btn btn-danger" href="/projects/quit/<%= project.id %>">Quit</a>
+                            <a class="btn btn-success" href="">Demand Payment</a>
+                        </td>
+                    </tr>
+                <% } else { %>
+                    <tr>
+                        <td><a href="/projects/<%= project.id %>"><%= project.title %></a></td>
+                        <td><%= project.username %></td>
+                        <td>
+                            <%   if(!(project.status == "completed")) { %> 
+                            <a href="/projects/edit/<%= project.id %>" class="btn btn-warning">Edit</a>
+                            <a href="/projects/delete/<%= project.id %>" class="btn btn-danger">Delete</a>
+                            <% if(project.awarded_to ) { %>
+                                <a href="/projects/fire/<%= project.id %>" class="btn btn-info" >Fire Worker</a>
+                                <a href="/finances/pay/<%= project.id  %>" class="btn btn-success">Pay freelancer</a>
+                            <% }%>
+                             <% } else { %>
+                                 <p>Completed</p>
+
+                             <% } %>
+                        </td>
+                    </tr>
+                <% } %>
+                <% })  %>
+               <% } else { %>
+                   <p>You have no projects.</p>
+               <% } %>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('../bottom') %>

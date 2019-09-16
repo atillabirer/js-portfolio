@@ -1,0 +1,40 @@
+<%- include('top') %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card mt-5">
+                <div class="card-header">
+                <h1><%= user.username %>'s profile
+            <small class="text-muted">edit details</small>
+            </h1>    
+                </div>
+                <div class="card-body">
+            
+            <form action="/users/profile" method="post">
+            <div class="form-group">
+                <input type="text" name="title" id="title" class="form-control" placeholder="Your title (e.g hirer or developer" value="<%= user.title %>">
+            </div>
+            <div class="form-group">
+            <textarea name="description" id="description"  class="form-control" cols="30" rows="10" placeholder="Describe yourself"><%= user.description %></textarea>
+            </div>
+            <% if(user.type == "client") { %>
+                <div class="form-group">
+                    <input type="text" name="skillset" id="skillset" class="form-control" value="<%= user.skillset %>" placeholder="What skills are you looking for? (comma separated)">
+                </div>
+            <% } else { %>
+                <div class="form-group">
+                    <input type="text" name="skillset" id="skillset" class="form-control" value="<%= user.skillset %>" placeholder="<%= (user.type == "hirer") ? "What skills are you looking for (comma separated)" : "What skills do you possess?(comma separated)"  %>">
+            </div>
+            <% } %>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>            
+            </form>
+
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('bottom') %>

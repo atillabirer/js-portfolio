@@ -1,0 +1,30 @@
+<%- include('top') %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <% if(user.type == "hirer") { %>
+                <h3>Worker's feedback:</h3>
+                <h5><%= project.worker_feedback  %></h5>
+                <b>Rating: <%= project.worker_rating %> stars</b>
+            <% } else { %>
+                <h3>Hirer's feedback:</h3>
+                <h5><%= project.hirer_feedback  %></h5>
+                <b>Rating: <%= project.hirer_rating %> stars</b>
+            <% } %>
+            <h3>Leave a rating</h3>
+            <form action="/feedback/<%= project.id %>" method="POST">
+                <div class="form-group">
+                    <textarea id="feedback" name="feedback" cols="30" rows="10" class="form-control"><%= (user.type == "hirer") ? project.hirer_feedback : project.worker_feedback   %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <input type="range" max="5" min="1" name="rating" class="form-control" value="<%= (user.type == "hirer") ? project.hirer_rating : project.worker_rating  %>">
+                </div>
+                <div class="form-group">
+                <button type="submit" class="btn btn-success">Save feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('bottom') %>

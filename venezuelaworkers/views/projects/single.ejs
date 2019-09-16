@@ -1,0 +1,58 @@
+<%- include('../top')  %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <% if(project) { %>
+<h1><%= project.title %></h1>
+<p><%= project.description  %></p>
+<ul class="list-inline">
+    <li><b>Price: <%= project.price %></b></li>
+    <li><b>Deadline: <%= project.deadline %></b></li>
+</ul>
+<% } else { %>
+    <p>No such project.<p>
+
+        <% } %>
+</div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+        
+        <div class="card">
+        
+            <div class="card-header">
+            Bids
+            </div>
+            <div class="card-body">
+                <% if(user && user.type == "worker") { %>
+                    <form method="POST" action="/bids">
+                        <input type="hidden" name="project_id" value="<%= project.id  %>">
+                        <div class="form-group">
+                        <label for="bid">Your bid:</label>
+                        <textarea id="bid" name="bid" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                        <button type="submit" class="btn btn-success">Send your bid</button>
+                        </div>
+                    </div>
+                <% } %>
+                <% bids.forEach(function(bid) { %>
+                    <blockquote class="blockquote">
+                        <p class="mb-0"><%= bid.bid %></p>
+                        <footer class="blockquote-footer"><%= bid.username %></footer>
+                        <% if(owner) { %>
+                            <%  if(!project.awarded_to) {%>
+                            <a class="btn btn-success" href="/bids/award/<%= bid.id %>">Hire</a>
+                        <% } %>
+                            <a class="btn btn-success" href="/conversations/create/<%= project.id %>/<%= bid.user_id  %>">Message</a>
+                    <% } %>
+                    </blockquote>
+            <% }) %>
+            </div>
+
+        </div>
+        </div
+    </div>
+</div>
+<%- include('../bottom') %>

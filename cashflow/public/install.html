@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<!--
+
+Page    : index / MobApp
+Version : 1.0
+Author  : Colorlib
+URI     : https://colorlib.com
+
+ -->
+
+<head>
+    <title>CashFlow - Bitcoin Cash Payment Processor with 0-conf and Shopify plugin</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="CashFlow - Accept Bitcoin Cash Payments, Instantly and Live">
+    <meta name="keywords" content="bitcoin cash,bitcoin cash payments,bitcoin cash payment,bitcoin cash zeoconf, bitcoin cash 0-conf, bitcoin cash payment gateway, bitcoin cash payment processor, bch payment gateway">
+
+    <!-- Font -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+    <style type="text/css">
+      
+#loading {
+		-webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
+}
+  </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- Owl carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- Main css -->
+    <link href="css/style.css" rel="stylesheet">
+    
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="30">
+
+    <!-- Nav Menu -->
+
+    <div class="nav-menu fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-dark navbar-expand-lg">
+                        <a class="navbar-brand" href="index.html">CASHFLOW</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                        <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"> <a class="nav-link" href="/">HOME </a> </li>
+                              
+                                <li class="nav-item"> <a class="nav-link active" href="#home">SHOPIFY <span class="sr-only">(current)</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="/doc">DEVELOPER DOCS</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="/terms">TERMS OF SERVICE</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="mailto:jimmy_birer@outlook.com">SUPPORT</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="/dashboard">DASHBOARD</a> </li>
+                                <li class="nav-item"><a href="/register" class="btn btn-outline-light my-3 my-sm-0 ml-lg-3">START GETTING PAID</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <header class="bg-gradient" id="home">
+        <div class="container mt-5">
+            <h1>Install the Cashflow.fm Shopify App</h1>
+            <p class="tagline">
+              It's now possible to get paid in Bitcoin Cash on your Shopify store. Don't miss out!
+          </p>
+          <br>
+          <form id="form" @submit.prevent="submit">
+            <div class="form-group">
+            <input type="text" class="form-control" name="shop" v-model="shop" placeholder="Enter your Shopify Shop URL (without www or https://)">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">
+              Install Cashflow.fm Shopify App
+            </button>
+          </form>
+          
+        </div>
+      <div class="img-holder mt-5"></div>
+    </header>
+
+    <!-- jQuery and Bootstrap -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Plugins JS -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var form = new Vue({
+        el: "#form",
+        data() {
+          return {shop: null}
+        },
+        methods: {
+          submit: function() {
+            window.open("https://cashflow.fm/shopify?shop=" + this.shop)
+          }
+        }
+      })
+    </script>
+
+</body>
+
+</html>

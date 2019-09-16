@@ -1,0 +1,35 @@
+<%- include('../top')%>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <% if(bids) { %>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Bid</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% bids.forEach(function(bid) { %>
+
+                            <tr>
+                                <td><%= bid.title %></td>
+                                <td><%= bid.bid %></td>
+                                <td>
+                                    <a href="/bids/edit/<%= bid.id %>" class="btn btn-info">Edit</a>
+                                    <a href="/bids/delete/<%= bid.id %>" class="btn btn-danger">Retract</a>
+                                </td>
+                            </tr>
+
+                            <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>You have no bids. Start applying to some jobs!</p>
+            <% } %>
+        </div>
+    </div>
+</div>
+<%- include('../bottom') %>

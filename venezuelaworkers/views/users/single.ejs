@@ -1,0 +1,31 @@
+<%- include('../top') %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3><%= singleuser.username %><small class="text-muted"><%= singleuser.type  %></small></h3>
+            <h5>Feedback</h5>
+            <hr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Feedback</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(projects) { %>
+                    <% projects.forEach(function(project) { %>
+                        <tr>
+                            <td><%= project.title  %></td>
+                            <td><%= (singleuser.type == "worker") ? project.hirer_feedback : project.worker_feedback %></td>
+                            <td><%= (singleuser.type == "hirer") ? project.worker_rating : project.hirer_rating %></td>
+                        </tr>
+                    <% })%>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('../bottom') %>
