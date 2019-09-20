@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import PhotoUpload from "react-native-photo-upload";
 
 
-const networkUrl = "http://5.249.144.235:3000";
+const networkUrl = "http://localhost";
 
 
 export default class EditProductScreen extends Component {
