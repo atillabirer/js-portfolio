@@ -12,7 +12,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 
 
-const networkUrl = "http://5.249.144.235:3000";
+const networkUrl = "http://localhost";
 
 
 
