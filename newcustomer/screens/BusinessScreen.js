@@ -7,7 +7,7 @@ import getTheme from "../native-base-theme/components";
 import {withNavigation} from "react-navigation";
 
 
-const networkUrl = "http://5.249.144.235:3000";
+const networkUrl = "http://localhost";
 
 class BusinessHeader extends React.Component {
 
