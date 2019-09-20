@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Text, Title,Content,Container,Header,Body, Button,Form,Item,Input } from "native-base";
 
 
-const networkUrl = "http://5.249.144.235:3000";
+const networkUrl = "http://localhost";
 
 
 export default class CreateBusinessScreen extends Component {
