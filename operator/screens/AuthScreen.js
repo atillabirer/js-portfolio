@@ -7,7 +7,7 @@ import { TouchableOpacity, TouchableHighlight } from "react-native-gesture-handl
 import {withNavigation} from "react-navigation";
 
 
-const networkUrl = "http://5.249.144.235:3000";
+const networkUrl = "http://localhost";
 
 export default class AuthScreen extends React.Component {
 
