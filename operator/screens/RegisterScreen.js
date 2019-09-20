@@ -4,7 +4,7 @@ import getTheme from "../native-base-theme/components";
 import material from "../native-base-theme/variables/material";
 
 
-const networkUrl = "http://5.249.144.235:3000";
+const networkUrl = "http:/localhost";
 
 export default class RegisterScreen extends Component {
 
