@@ -9,7 +9,7 @@ import PushNotification from "react-native-push-notification";
 import moment from "moment";
 import Spinner from "react-native-loading-spinner-overlay";
 
-const networkUrl = "http://5.249.144.235:3000";
+const networkUrl = "http://localhost";
 
 
 class ProductsHeader extends React.Component {
