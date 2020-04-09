@@ -1,0 +1,151 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+// the translations
+// (tip move them in a JSON file and import them)
+const resources = {
+  en: {
+    translation: {
+      thisMonth: "This Month",
+      enterContest: "Join the contest",
+      name: "Name or Alias",
+      previousMonth:"Last Month",
+      allTime: "ALL TIME",
+      age:"Age",
+      country:"Country",
+      email: "Email",
+      bio: "Add some info about you",
+      qrcode: "Place the QR Code representing your Bitcoin Cash address",
+      vote: "Vote with Bitcoin Cash",
+      unlock: "Unlock with Bitcoin Cash",
+      restricted: "Restricted Content",
+      nudity: "Contains Nudity",
+      unlockView: "Unlock to View",
+      howItWorks: "How it works",
+      over18: "I’m over 18 years old",
+      myself: "All the images I’ll upload are only of myself",
+      upload: "Upload Image",
+      enterAddress: "Enter your Bitcoin Cash address",
+      youCanUpload: "You can upload any photo taken with smartphone or digital camera. Remember, the better the photo, the better your chances of receiving more Bitcoin Cash!",
+      important: "Most Important",
+      nextStep: "Next Step",
+      submitPhoto: "SUBMIT A PHOTO",
+      submit: "Submit Application",
+      agree: "I agree to the terms and conditions",
+      placeCode: "Place the QR Code representing your Bitcoin Cash address",
+      areYouNext: "Are you the next Bitcoin Cash Queen?",
+      pendingApproval: "Your picture is now submitted and pending approval.",
+      backHome: "Back to homepage",
+      theAmount: "The amount you send is the amount you vote!",
+      dashAmount: "Amount of Bitcoin Cash to send",
+      openWallet: "Open in Wallet",
+      modelsDash: "Model’s Bitcoin Cash Address",
+      allFunds: "All funds are sent directly to the model in the photo. No middlemen",
+      step1: "Step 1 of 4",
+      step2: "Step 2 of 4",
+      step3: "Step 3 of 4",
+      step4: "Step 4 of 4",
+      learnHow: "Learn how to use Bitcoin Cash",
+      howToUse: "How to Use",
+      privacyStatement: "Privacy Statement",
+      goodLuck: "Good luck in this month’s contest!",
+      termsAndConditions: "Terms and Conditions",
+      monthlyContest: "Monthly beauty contest where participants around the world compete for the title of Bitcoin Cash Queen of the month.",
+      toVote: "To vote, viewers send payments of Bitcoin Cash directly to the contestants, no middle-men.",
+      download: "Download a Bitcoin Cash wallet if you don’t already have one.",
+      fullList: "Full list of Bitcoin Cash Wallets",
+      note: "*note: Any Bitcoin Cash wallet will do on any device, though make sure it is reputable.",
+      getDash: "Get Bitcoin Cash",
+      allDone: "All done!",
+      acquireDash: "Acquire Bitcoin Cash on an exchange or Peer-to-Peer (P2P) website or even better get paid in Bitcoin Cash!",
+      clickOnVote: "Click on the vote with Bitcoin Cash button, then choose the amount to send and press the ‘pay in wallet’ icon.",
+      simplyApprove: "In your Bitcoin Cash wallet simply approve the transaction.",
+      inSomeWallets: "*in some wallets you may need to copy the contestant’s wallet address and paste it in the receiver address field.",
+      theContestant: "The contestant with the most Bitcoin Cash collected during the contest period wins. It’s that simple.",
+      anyoneInterested: "Anyone interested in joining next month’s contest should enter their submission.",
+      monthlyWinners: "Monthly winners are included in an annual Miss Bitcoin Cash calendar. Its profits are split between the admins and the winners.",
+      novemberContest: "You are entering the December contest that will run till December 31st. Submit a new photo at the beginning of next month to enter again.",
+      mustBeUnused: "Your Bitcoin Cash address must be an unused, new address (simply select ‘Request’ in your app and it will create a new address to use. Do not reuse an address you have used in the past)",
+      mustContain: "The photo must constain the name of the website (Bitcoin CashQueen.com) written by hand clearly visible somewhere in the image! Without this we won’t accept your photo."
+    }
+  },
+  es: {
+    translation: {
+      thisMonth:"Este mes",
+      enterContest: "Unirse al concurso",
+      name:"Nombre o Apodo",
+      previousMonth:"Mes Anterior",
+      allTime: "Todo El Tiempo",
+      age:"Edad",
+      country:"País",
+      email:"Correo electrónico",
+      bio: "Añade una breve presentación para que las personas sepan más sobre ti",
+      vote: "Votar con Bitcoin Cash",
+      unlock: "Desbloquear con Bitcoin Cash",
+      restricted: "Contenido Restringido",
+      nudity: "Contiene desnudez",
+      unlockView: "desbloquear para ver",
+      howItWorks: "Cómo funciona",
+      over18: "Tengo más de 18 años",
+      myself: "Todas las imagenes que subiré son únicamente de mi propiedad",
+      upload: "Subir imagen",
+      enterAddress: "Ingresa tu dirección Bitcoin Cash",
+      youCanUpload: "Puedes subir cualquier foto tomada con tu smartphone o tu cámara digital. Recuerda que mientras mejor sea tu foto ¡más probabilidades tienes de ganar más Bitcoin Cash!",
+      important: "Importante",
+      nextStep: "Siguiente paso",
+      submit: "Envíar aplicación",
+      agree: "Estoy de acuerdo con los términos y condiciones",
+      placeCode: "Coloca el código QR que representa tu dirección de Bitcoin Cash",
+      pendingApproval: "¿Serás tu la siguiente Reina Bitcoin Cash?",
+      areYouNext: "Hemos recibido tu foto y ahora está pendiente de aprobación",
+      backHome: "Regresar a página principal",
+      theAmount: "La cantidad que envías, es la cantidad de votos para la participante",
+      dashAmount: "Cantidad de Bitcoin Cash a enviar",
+      openWallet: "Abrir en mi monedero",
+      modelsDash: "Dirección Bitcoin Cash de la modelo",
+      allFunds: "Todos los fondos recaudados se envían directamente a la modelo de la foto sin",
+      step1: "Paso 1 de 4",
+      step2: "Paso 2 de 4",
+      step3: "Paso 3 de 4",
+      step4: "Paso 4 de 4",
+      learnHow: "Descubre cómo utilizar Bitcoin Cash",
+      privacyStatement: "Aviso de privacidad",
+      goodLuck: "¡Muy buena suerte en el concurso de este mes!",
+      termsAndConditions: "Términos y Condiciones",
+      monthlyContest: "Concurso mensual de belleza en el que las participantes de todo el mundo compiten por el título “Bitcoin Cash Queen” del mes.",
+      toVote: "Para votar, los usuarios envían pagos con Bitcoin Cash directamente a las participantes sin intermediarios.",
+      download: "descargar una billetera o monedero electrónico Bitcoin Cash (si aún no la tiene).",
+      fullList: "Lista completa de Monederos Bitcoin Cash",
+      note: "*nota: Cualquier Monedero Bitcoin Cash funcionará en cualquier dispositivo solo asegúrate de que sea confiable.",
+      getDash: "Obtener Bitcoin Cash",
+      allDone: "¡Todo listo!",
+      howToUse: "cómo utilizar",
+      submitPhoto: "Envía una foto",
+      acquireDash: "Adquiere Bitcoin Cash en una plataforma compra venta o aún mejor ¡cobra con Bitcoin Cash!",
+      clickOnVote: "Para votar, haz click en el botón Bitcoin Cash, selecciona la cantidad a enviar y presiona el ícono “pagar en monedero”",
+      simplyApprove: "En Bitcoin Cash simplemente aprueba la transacción.",
+      inSomeWallets: "*En algunos monederos es necesario copiar la dirección del monedero o billetera de la participante y pegarlo en la dirección del destinatario",
+      theContestant: "La participante que haya recolectado la mayor cantidad de Bitcoin Cash dentro del periodo del concurso gana. Es así de simple.",
+      monthlyWinners: "Las ganadoras del mes son incluidas en el calendario anual Miss Bitcoin Cash. Las ganancias son repartidas entre las ganadoras y los administradores del sitio.",
+      anyoneInterested: "Cualquier persona interesada en participar en el concurso del siguiente mes debe presentar su solicitud.",
+      novemberContest: "Estás entrenando al concurso que finaliza el 31 de Deciembre. Envía una nueva foto al inicio del siguiente mes para participar de nuevo.",
+      mustBeUnused: "Tu dirección de Bitcoin Cash tiene que ser nueva y no haber sido utilizada previamente (simplemente selecciona “Solicitar” en la aplicación y se creará una nueva dirección. No reutilices una dirección que hayas usado anteriormente",
+      mustContain: "La foto debe contener el nombre de la página web (Bitcoin CashQueen.com) escrita a mano y visible en algún lugar de la imagen. Sin este requisito no aceptaremos tu foto."
+    }
+  }
+};
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    resources,
+    lng: "en",
+
+    keySeparator: false, // we do not use keys in form messages.welcome
+
+    interpolation: {
+      escapeValue: false // react already safes from xss
+    }
+  });
+
+export default i18n;
