@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Image, Alert,Linking } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createAppContainer } from "react-navigation";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 import WelcomeScreen from './screens/WelcomeScreen';
-import AllTimeScreen from './screens/AllTimeScreen';
 import PreviousMonthScreen from './screens/ThisMonthScreen';
 import ModelDetailScreen from './screens/ModelDetailScreen';
 import VotingScreen from './screens/VotingScreen';
@@ -23,14 +22,8 @@ import AboutScreen from './screens/AboutScreen';
 import HeaderComponent from "./HeaderComponent"
 import AsyncStorage from '@react-native-community/async-storage';
 import colors from "./assets/styles/colors"
+const alert = Alert.alert
 
-// if (!global.btoa) {
-//   global.btoa = encode;
-// }
-
-// if (!global.atob) {
-//   global.atob = decode;
-// }
 
 const modelTabs = createMaterialTopTabNavigator({
   thisMonth: {
@@ -116,7 +109,7 @@ const modelTabs = createMaterialTopTabNavigator({
     }
   },
   submitPhoto: {
-    screen: AllTimeScreen,
+    screen: () => <View></View>,
     navigationOptions: {
       tabBarLabel: (<Translation>
         {
@@ -151,7 +144,7 @@ const appStack = createStackNavigator({
   tabs: {
     screen: modelTabs,
     navigationOptions: {
-      header: <HeaderComponent />
+      header: (props) => <HeaderComponent />
     }
   },
   detail: {

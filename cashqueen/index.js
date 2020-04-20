@@ -7,6 +7,7 @@ import { name as appName } from './app.json';
 import firebase from "@react-native-firebase/app";
 import firestore from "@react-native-firebase/firestore";
 import AsyncStorage from "@react-native-community/async-storage";
+import messaging from "@react-native-firebase/messaging";
 import './shim'
 
 global.Buffer = global.Buffer || require('buffer').Buffer

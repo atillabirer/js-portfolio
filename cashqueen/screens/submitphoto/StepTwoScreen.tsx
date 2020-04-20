@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,Button,Linking,StyleSheet } from 'react-native';
+import { View, Text,Button,Linking,StyleSheet, Alert } from 'react-native';
 import { TextInput, ScrollView } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
 import { withTranslation } from 'react-i18next';
@@ -8,19 +8,18 @@ import firestore from '@react-native-firebase/firestore';
 import crypto from 'crypto'
 import {Address} from "@dashevo/dashcore-lib"
 import colors from "../../assets/styles/colors"
+import ScreenWithTranslation from '../ScreenWithTranslation';
+const alert = Alert.alert
 
 
 
-class StepTwoScreen extends Component {
+class StepTwoScreen extends Component<ScreenWithTranslation> {
   static navigationOptions = {
     title: "Step Two"
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      address: ""
-    };
-  }
+  state = {
+    address: ""
+  };
 
   downloads = async () => {
     await Linking.openURL("https://www.dash.org/downloads/")
@@ -61,7 +60,7 @@ class StepTwoScreen extends Component {
         />
         <Text style={style.detailDesc}>{this.props.i18n.t("download")}</Text>
         <Text onPress={this.downloads} style={[style.detailDesc,{color:"blue"}]}>https://www.dash.org/downloads/</Text>
-        <YouTube videoId="DiYEp_Hr3Aw" apiKey="INSERTAPIKEYHERE" style={{ alignSelf: 'stretch', height: 400 }} />
+        <YouTube videoId="DiYEp_Hr3Aw"  style={{ alignSelf: 'stretch', height: 400 }} />
         <Text style={style.detailHead}>{this.props.i18n.t("important")}</Text>
         <Text style={style.detailDesc}>
         {this.props.i18n.t("mustBeUnused")}

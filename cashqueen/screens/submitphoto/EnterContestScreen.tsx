@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Alert } from 'react-native';
 import CheckBox from "react-native-check-box";
 import { withTranslation } from 'react-i18next';
 import { withNavigation } from 'react-navigation';
 import YouTube from 'react-native-youtube';
+import { NavigationStackProp } from 'react-navigation-stack';
+import ScreenWithTranslation from '../ScreenWithTranslation';
 
 
-class EnterContestScreen extends Component {
+type EnterContestScreenState = {
+  myself: boolean,
+  eighteen: boolean
+}
+
+class EnterContestScreen extends Component<ScreenWithTranslation,EnterContestScreenState>{
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      myself: false,
-      eighteen: false
-    };
-  }
 
+  state: EnterContestScreenState = {
+    myself: false,
+    eighteen: false
+  }
+  
   toggleEighteen = () => {
     this.setState((prevState) => {
       
@@ -33,11 +38,11 @@ class EnterContestScreen extends Component {
 
   checks = () => {
     if(!this.state.eighteen) {
-      alert("you must be 18 to enter this competition")
+      Alert.alert("you must be 18 to enter this competition")
       return
     }
     if(!this.state.myself) {
-      alert("you can only apply for yourself")
+      Alert.alert("you can only apply for yourself")
       return
     }
     this.props.navigation.push("stepOne")
@@ -54,7 +59,7 @@ class EnterContestScreen extends Component {
     color: "#707070"
   }}> {this.props.i18n.t("howItWorks")}: </Text>
         
-        <YouTube videoId="DiYEp_Hr3Aw" apiKey="AIzaSyACGumj4GssC5c45eCJZNntu99Z3TZ8t4U" style={{ alignSelf: 'stretch', height: 300 }} />
+        <YouTube videoId="DiYEp_Hr3Aw"  style={{ alignSelf: 'stretch', height: 300 }} />
         <CheckBox onClick={this.toggleEighteen}
         isChecked={this.state.eighteen}
         rightText={this.props.i18n.t("over18")}

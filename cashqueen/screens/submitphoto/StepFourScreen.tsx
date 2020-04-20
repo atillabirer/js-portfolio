@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button,StyleSheet,KeyboardAvoidingView } from 'react-native';
+import { View, Text, Button,StyleSheet,KeyboardAvoidingView, Alert } from 'react-native';
 import { TextInput, ScrollView } from 'react-native-gesture-handler';
 import CheckBox from 'react-native-check-box';
 import firestore from '@react-native-firebase/firestore';
@@ -13,37 +13,49 @@ import { withTranslation } from 'react-i18next';
 import crypto from 'crypto'
 import {Address} from "@dashevo/dashcore-lib"
 import colors from "../../assets/styles/colors"
+import ScreenWithTranslation from '../ScreenWithTranslation';
+const alert = Alert.alert
 
 
+type StepFourScreenState = {
+  agree: boolean,
+  name: string,
+  age: string,
+  country: string,
+  email: string,
+  bio: string,
+  votes: number,
+  locked: boolean,
+  adult: boolean,
+  approved: boolean,
+  spinner: boolean
+};
 
-
-class StepFourScreen extends Component {
+class StepFourScreen extends Component<ScreenWithTranslation,StepFourScreenState> {
   static navigationOptions = {
     title: "Step Four"
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      agree: false,
-      name: "",
-      age: "",
-      country: "",
-      email: "",
-      bio: "",
-      votes: 0,
-      locked: false,
-      adult: false,
-      approved: false,
-      spinner: false
-    };
-  }
+  state = {
+    agree: false,
+    name: "",
+    age: "",
+    country: "",
+    email: "",
+    bio: "",
+    votes: 0,
+    locked: false,
+    adult: false,
+    approved: false,
+    spinner: false
+  };
+ 
   toggleAgree = () => {
     console.log(this.state)
     this.setState((prevState) => {
       return { agree: !prevState.agree }
     })
   }
-  uploadImageAsync = async (uri) => {
+  uploadImageAsync = async (uri: string) => {
     // Why are we using XMLHttpRequest? See:
     // https://github.com/expo/expo/issues/2402#issuecomment-443726662
     const blob = await new Promise((resolve, reject) => {

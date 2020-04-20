@@ -6,18 +6,13 @@ import colors from "./assets/styles/colors"
 
 
 
-class HeaderComponent extends React.Component {
+const HeaderComponent = () => (
+  <View style={style.container}>
+  <Text style={{fontFamily:"Montserrat-Bold",color:"white",fontSize:36}}>CashQueen</Text>
+   <Text style={style.title}>March beauty contest</Text>
+ </View>
+);
 
-
-  render() {
-    return (
-      <View style={style.container}>
-       <Text style={{fontFamily:"Montserrat-Bold",color:"white",fontSize:36}}>CashQueen</Text>
-        <Text style={style.title}>March beauty contest</Text>
-      </View>
-    );
-  }
-}
 const style = StyleSheet.create({
     container: {
         padding:10,

@@ -4,11 +4,19 @@ import QRCode from "react-native-qrcode-svg";
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { withNavigation } from 'react-navigation';
 import { withTranslation } from 'react-i18next';
+import ScreenWithTranslation from '../ScreenWithTranslation';
 
-class StepThreeScreen extends Component {
+type StepThreeScreenProps = ScreenWithTranslation;
+
+class StepThreeScreen extends Component<StepThreeScreenProps> {
+
   static navigationOptions = {
     title: "Step Three"
   }
+  state = {
+    imgstyle: {flex:1,width:"100%",height:500},
+    position: "top-left"
+  };
   radioProps = [
     {label: "Top Left",value:0},
     {label: "Top Right",value:1},
@@ -16,15 +24,8 @@ class StepThreeScreen extends Component {
     {label: "Bottom Right",value:3},
   ]
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      imgstyle: {flex:1,width:"100%",height:500},
-      position: "top-left"
-    };
-  }
 
-  positionHandler = (value,index) => {
+  positionHandler = (value: number,index: number) => {
     if(value == 0) {
       this.setState({imgstyle:{flex:1,width:"100%",height:500},position:"top-left"})
     }

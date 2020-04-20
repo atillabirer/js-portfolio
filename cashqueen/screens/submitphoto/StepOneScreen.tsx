@@ -6,20 +6,21 @@ import uuid from "uuidv4";
 import { withNavigation } from 'react-navigation';
 import { withTranslation } from 'react-i18next';
 import colors from "../../assets/styles/colors"
+import ScreenWithTranslation from '../ScreenWithTranslation';
 
-class StepOneScreen extends Component {
+type StepOneScreenProps = ScreenWithTranslation;
 
+
+class StepOneScreen extends Component<StepOneScreenProps> {
+  
+  
+  state = {
+    image: ""
+  };
 
   static navigationOptions = {
     title: "Step One"
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      image: ""
-    };
-  }
-
 
 
   _pickImage = async () => {
