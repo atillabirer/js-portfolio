@@ -1,6 +1,6 @@
 This repository contains all my Express.JS, React and React Native work.
 
-CashQueen: A react native mobile app using Firebase and a Webhook API for events.
+CashQueen: A react native mobile app using Bitcoin Cash cryptocurrency features, Firebase and a Webhook API for events.
 
 Cashflow: A Bitcoin Cash payment gateway made in Express.js using Bitcoin RPC
 
