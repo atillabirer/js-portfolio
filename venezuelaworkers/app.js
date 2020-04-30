@@ -68,7 +68,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(require('express-session')({ secret: 'niggerstonguemyanus', resave: false, saveUninitialized: true }));
+app.use(require('express-session')({ secret: '', resave: false, saveUninitialized: true }));
 app.use(flash())
 
 // Initialize Passport and restore authentication state, if any, from the
