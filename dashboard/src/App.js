@@ -1,10 +1,11 @@
-import { Card, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, Typography } from "@material-ui/core"
+import { Card, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, Typography, List, ListItem, ListItemText, Button } from "@material-ui/core"
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore' // <- needed if using firestore
-import React from 'react'
+import "firebase/storage"
+import React, { useState,useEffect } from 'react'
 import { Provider, useSelector } from 'react-redux'
-import { firebaseReducer, ReactReduxFirebaseProvider, useFirestoreConnect, useFirebase } from 'react-redux-firebase'
+import { firebaseReducer, ReactReduxFirebaseProvider, useFirestoreConnect, useFirebase, useFirestore } from 'react-redux-firebase'
 // import 'firebase/functions' // <- needed if using httpsCallable
 import { combineReducers, createStore } from 'redux'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
@@ -31,17 +32,49 @@ const rrfProps = {
   config: {},
   createFirestoreInstance // <- needed if using firestore
 }
-<Card>
-function ModelCard({name}) {
+
+function ModelCard({model}) {
+
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const [picture, setPicture] = useState("");
+  
 
   //for the image url
+  useEffect(() => {
+    firebase.storage().ref().child(model.picture).getDownloadURL().then((url) => {
+      setPicture(url);
+    }).catch((error) => {
+      console.log(error)
+    });
+  },[picture]);
+
+  async function setField(field,value) {
+    try {
+      await firestore.collection("models").doc(model.id).update({[field]:value})
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Card>
-      <CardHeader title={name}></CardHeader>
-      <CardMedia image="https://image.shutterstock.com/image-vector/sample-stamp-grunge-texture-vector-260nw-1389188336.jpg"/>
-      <CardContent></CardContent>
-      <CardActions></CardActions>
+      <CardHeader title={model.name}></CardHeader>
+      <CardMedia image={picture} style={{padding:"20%"}}/>
+      <CardContent>
+        <ul>
+          <li><b>Name:</b>{model.name}</li>
+        </ul>
+      </CardContent>
+      <CardActions alignItems="center">
+        <Button size="small" onClick={() => setField("approved",!model.approved)}>{model.approved ? "reject" : "approve"}</Button>
+
+        <Button size="small" onClick={() => setField("locked",!model.locked)}>{model.locked ? "unlock" : "lock"}</Button>
+
+          <Button size="small" onClick={() => setField("adult",!model.adult)}>{model.adult ? "unadult" : "adult"}</Button>
+
+        <Button size="small">Delete</Button>
+      </CardActions>
     </Card>
   );
 }
@@ -59,7 +92,7 @@ function Models(props) {
 
   return (
     <Grid container spacing={2}>
-      {models.map((model) => <Grid key={model.name} item xs={4}><ModelCard name={model.name}/></Grid>)}
+      {models.map((model) => <Grid key={model.name} item xs={4}><ModelCard model={model}/></Grid>)}
     </Grid>
   );
 }
