@@ -1,12 +1,17 @@
-This repository contains all my Express.JS, React and React Native work.
+###  My Javascript Developer Portfolio
 
-CashQueen: A react native mobile app using Bitcoin Cash cryptocurrency features, Firebase and a Webhook API for events.
+**this repo constains my past work.**
 
-Cashflow: A Bitcoin Cash payment gateway made in Express.js using Bitcoin RPC
+**React and React Native**
 
-Newserver: A business and products management server in Express.JS using Socket.IO for product updates
+* dt-block-explorer-public-client: React and Ant Design app using apollo-client for a graphql backend
+* Dashboard - React dashboard for the cashqueen app, react-redux-firebase and Material UI
+* CashQueen - React native app using Firebase and Bitcoin.com API
+* Newoperator and Newcustomer - Two React native apps using Socket.IO and NativeBase
 
-Venezuelaworkers: A freelance platform made in Express.JS that supports crypto payments
+**Node / Express.js**
 
-Operator: React Native app using NativeBase & Socket.IO
-Newcustomer: React Native app using NativeBase & Socket.IO
+* Cashflow - A payment processor in Express.JS using bitcoin-rpc library
+* Venezuelaworkers - Express.JS freelance board using bitcoin-rpc library
+* newserver - Express.js REST API serving the newoperator and newcustomer apps, socket.io and JWT
+* dt-block-exporer-public-server: GraphQL server in Express.JS
