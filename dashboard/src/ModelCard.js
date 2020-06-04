@@ -32,7 +32,7 @@ export default function ModelCard({ model }) {
     }
   
     return (
-      <Card>
+      <Card data-testid="modelcard">
         <CardHeader title={model.name}></CardHeader>
         <CardMedia image={picture} style={{ padding: "56.25%" }} />
         <CardContent>
@@ -72,11 +72,11 @@ export default function ModelCard({ model }) {
           </List>
         </CardContent>
         <CardActions spacing={10}>
-          <Button size="small" onClick={() => setField("approved", !model.approved)}>{model.approved ? "reject" : "approve"}</Button>
+          <Button size="small" className="approvedBtn" onClick={() => setField("approved", !model.approved)}>{model.approved ? "reject" : "approve"}</Button>
   
-          <Button size="small" onClick={() => setField("locked", !model.locked)}>{model.locked ? "unlock" : "lock"}</Button>
+          <Button size="small" data-testid="lockedBtn" className="lockedBtn" onClick={() => setField("locked", !model.locked)}>{model.locked ? "unlock" : "lock"}</Button>
   
-          <Button size="small" onClick={() => setField("adult", !model.adult)}>{model.adult ? "unadult" : "adult"}</Button>
+          <Button size="small" className="adultBtn" onClick={() => setField("adult", !model.adult)}>{model.adult ? "unadult" : "adult"}</Button>
   
           <Button size="small">Delete</Button>
         </CardActions>
