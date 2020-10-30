@@ -2,12 +2,16 @@
 
 **this repo constains my past work.**
 
-**React and React Native**
+**React**
 
 * dt-block-explorer-public-client: React and Ant Design app using apollo-client for a graphql backend
 * Dashboard - React dashboard for the cashqueen app, react-redux-firebase and Material UI
+
+**React Native**
+
 * CashQueen - React native app using Firebase and Bitcoin.com API
 * Newoperator and Newcustomer - Two React native apps using Socket.IO and NativeBase
+* MyApp - Project I made for a coding assignment using Typescript and React Navigation 5
 
 **Node / Express.js**
 
